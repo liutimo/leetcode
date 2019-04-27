@@ -1,5 +1,5 @@
 #include "array.h"
-
+#include "permutation.h"
 
 int main()
 {
@@ -8,8 +8,12 @@ int main()
 	//auto ret = Solution54().spiralOrder(in);
 	//printV<decltype(ret)>(ret);
 
-	auto ret = Solution59().generateMatrix(9);
-	printV2<decltype(ret) > (ret);
+	//auto ret = Solution59().generateMatrix(9);
+	//printV2<decltype(ret) > (ret);
+
+
+	auto ret = Solution60().getPermutation(6, 6);
+	printV<decltype(ret)>(ret);
 	system("pause");
 	return 0;
 }
