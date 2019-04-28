@@ -37,3 +37,20 @@ struct ListNode {
 	ListNode *next;
 	ListNode(int x) : val(x), next(NULL) {}
 };
+
+
+//¥Ú”°¡¥±Ì
+void printList(ListNode *head) {
+	while (head)
+	{
+		std::cout << head->val << "->";
+		head = head->next;
+	}
+	std::cout << std::endl;
+}
+
+template<typename T>
+void print(const T &t)
+{
+	std::cout << t << std::endl;
+}
