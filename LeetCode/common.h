@@ -30,3 +30,10 @@ void printV2(const T &t)
 		std::cout << std::endl;
 	}
 }
+
+//Á´±í½áµã
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};

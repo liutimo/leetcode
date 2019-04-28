@@ -1,6 +1,6 @@
 #include "array.h"
 #include "permutation.h"
-
+#include "list.h"
 int main()
 {
 	//
@@ -12,8 +12,13 @@ int main()
 	//printV2<decltype(ret) > (ret);
 
 
-	auto ret = Solution60().getPermutation(6, 6);
-	printV<decltype(ret)>(ret);
+	//auto ret = Solution60().getPermutation(6, 6);
+	//printV<decltype(ret)>(ret);
+	ListNode *head = new ListNode(0);
+	head->next = new ListNode(1);
+	head->next->next = new ListNode(2);
+	Solution61().rotateRight(head, 0);
+
 	system("pause");
 	return 0;
 }

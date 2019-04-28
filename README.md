@@ -6,3 +6,7 @@ LeetCode
 3. [54.螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 4. [59.螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/)
 5. [60.第k个排列](https://leetcode-cn.com/problems/permutation-sequence/)
+
+#### 20190428
+1. [61. 旋转链表](https://leetcode-cn.com/problems/rotate-list/)
+2.
