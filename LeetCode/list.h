@@ -138,3 +138,78 @@ TEST(List, Solution82) {
 	EXPECT_EQ(listNodeToString(head), "[1, 2, 3, 4, 5, 7]");
 
 }
+//86. 分隔链表
+//
+//给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
+//
+//你应当保留两个分区中每个节点的初始相对位置。
+//
+//示例 :
+//
+//输入: head = 1->4->3->2->5->2, x = 3
+//	输出 : 1->2->2->4->3->5
+//执行用时 : 12 ms, 在Partition List的C++提交中击败了94.91% 的用户
+//内存消耗: 8.8 MB, 在Partition List的C++提交中击败了5.16% 的用户
+//
+class Solution86 {
+public:
+	ListNode* partition(ListNode* head, int x) {
+		if (!head) return head;
+		
+
+		//左边的插入点
+		ListNode *left_insert_point = nullptr;
+		ListNode *right_insert_point = nullptr;
+		ListNode *curr = head;
+		ListNode *right_head = nullptr;
+		ListNode *left_head = nullptr;
+
+		//1 4 3 2 5 2 
+		while (curr) {
+			if (curr->val < x) {
+				auto *c = curr;
+				curr = curr->next;
+				if (!left_head) {
+					left_head = c;
+					left_insert_point = c;
+					left_insert_point->next = right_head;
+				}
+				else {
+					left_insert_point->next = c;
+					c->next = right_head;
+					left_insert_point = c;
+				}
+			}
+			else {
+				auto *c = curr;
+				curr = curr->next;
+				if (!right_head) {
+					right_head = c;
+					right_insert_point = c;
+					if (left_insert_point)
+						left_insert_point->next = c;
+				}
+				else {
+					right_insert_point->next = c;
+					right_insert_point = c;
+				}
+			}
+		}
+		if (right_insert_point)
+			right_insert_point->next = nullptr;
+		return left_head ? left_head : right_head;
+	}
+};
+
+TEST(List, Soultion86) {
+	string line = "[1,4,3,2,5,2]";
+	
+	EXPECT_EQ(listNodeToString(Solution86().partition(stringToListNode(line), 3)), "[1, 2, 2, 4, 3, 5]");
+
+	line = "[2, 1]";
+	EXPECT_EQ(listNodeToString(Solution86().partition(stringToListNode(line), 2)), "[1, 2]");
+
+
+	line = "[1, 2]";
+	EXPECT_EQ(listNodeToString(Solution86().partition(stringToListNode(line), 2)), "[1, 2]");
+}
