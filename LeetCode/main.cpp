@@ -25,9 +25,17 @@ int main()
 
 	//vector<vector<int>> vec = { { 0,0,0, 0,1,0 },{ 0,1,0,0,0, 0 },{ 0,0,0,0,0, 0 } };
 	//print<int>(Solution63().uniquePathsWithObstacles(vec));
+
+#define TEST_CASE
+#ifdef TEST_CASE
 	testing::InitGoogleTest();
 
 	RUN_ALL_TESTS();
+#else 
+	Solution77().combine(4, 2);
+
+#endif //TEST
+
 	system("pause");
 	return 0;
 }
