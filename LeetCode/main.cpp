@@ -2,6 +2,9 @@
 #include "permutation.h"
 #include "list.h"
 #include "dynamicprogramming.h"
+
+
+
 int main()
 {
 	//
@@ -32,8 +35,6 @@ int main()
 
 	RUN_ALL_TESTS();
 #else 
-	Solution77().combine(4, 2);
-
 #endif //TEST
 
 	system("pause");
