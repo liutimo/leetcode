@@ -25,10 +25,9 @@ int main()
 
 	//vector<vector<int>> vec = { { 0,0,0, 0,1,0 },{ 0,1,0,0,0, 0 },{ 0,0,0,0,0, 0 } };
 	//print<int>(Solution63().uniquePathsWithObstacles(vec));
+	testing::InitGoogleTest();
 
-	vector<vector<int>> vec = { { 1,3,1 },{ 1,5,1 },{ 4,2,1 } };
-	print<int>(Solution64().minPathSum(vec));
-
+	RUN_ALL_TESTS();
 	system("pause");
 	return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -9,7 +10,7 @@
 #include <algorithm>
 using namespace std;
 
-//´òÓ¡Ò»Î¬ÈİÆ÷
+//æ‰“å°ä¸€ç»´å®¹å™¨
 template<typename T>
 void printV(const T &t)
 {
@@ -19,7 +20,7 @@ void printV(const T &t)
 	std::cout << std::endl;
 }
 
-//´òÓ¡¶şÎ¬ÈİÆ÷
+//æ‰“å°äºŒç»´å®¹å™¨
 template<typename T>
 void printV2(const T &t)
 {
@@ -31,7 +32,7 @@ void printV2(const T &t)
 	}
 }
 
-//Á´±í½áµã
+//é“¾è¡¨ç»“ç‚¹
 struct ListNode {
 	int val;
 	ListNode *next;
@@ -39,7 +40,7 @@ struct ListNode {
 };
 
 
-//´òÓ¡Á´±í
+//æ‰“å°é“¾è¡¨
 void printList(ListNode *head) {
 	while (head)
 	{
