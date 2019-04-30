@@ -16,3 +16,6 @@ LeetCode
 
 #### 20190429
 1. [77. 组合](https://leetcode-cn.com/problems/combinations/)
+2. [33. 搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+3. [82. 删除排序链表中的重复元素 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
+4. [86. 分隔链表](https://leetcode-cn.com/problems/partition-list/submissions/)
