@@ -248,3 +248,47 @@ TEST(Dynamic, Solution91) {
 	EXPECT_EQ(Solution91().numDecodings("26"), 2);
 	EXPECT_EQ(Solution91().numDecodings("20"), 1);
 }
+
+
+//96. 不同的二叉搜索树
+//给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+//
+//示例 :
+//
+//输入: 3
+//	输出 : 5
+//	解释 :
+//	给定 n = 3, 一共有 5 种不同结构的二叉搜索树 :
+//
+//	1         3     3      2      1
+//	\       /     /      / \      \
+//	3     2     1      1   3      2
+//	/     /       \                 \
+//	2     1         2                 3
+//执行用时: 8 ms, 在Unique Binary Search Trees的C++提交中击败了69.95% 的用户
+//内存消耗 : 8.5 MB, 在Unique Binary Search Trees的C++提交中击败了5.17% 的用户
+class Solution96 {
+public:
+	int numTrees(int n) {
+		vector<int> dp(n + 1, 0);
+
+		if (n < 3) return n;
+		dp[0] = 1;
+		dp[1] = 1;
+		dp[2] = 2;
+
+		for (int i = 3; i <= n; i++)
+		{
+			for (int j = 1; j <= i; ++j) {
+				//j作为根节点
+				//左子树 * 右子树
+				dp[i] += dp[j - 1] * dp[i - j];
+			}
+		}
+		return dp.back();
+	}
+};
+
+TEST(Dynamic, Solution96) {
+	EXPECT_EQ(Solution96().numTrees(4), 14);
+}
