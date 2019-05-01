@@ -267,6 +267,7 @@ TEST(Dynamic, Solution91) {
 //	2     1         2                 3
 //执行用时: 8 ms, 在Unique Binary Search Trees的C++提交中击败了69.95% 的用户
 //内存消耗 : 8.5 MB, 在Unique Binary Search Trees的C++提交中击败了5.17% 的用户
+//可喜可贺，第一道完全自己解答的动态规划题
 class Solution96 {
 public:
 	int numTrees(int n) {
@@ -291,4 +292,79 @@ public:
 
 TEST(Dynamic, Solution96) {
 	EXPECT_EQ(Solution96().numTrees(4), 14);
+}
+
+
+//95. 不同的二叉搜索树 II
+//给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
+//
+//示例 :
+//
+//输入: 3
+//	输出 :
+//	[
+//		[1, null, 3, 2],
+//		[3, 2, null, 1],
+//		[3, 1, null, null, 2],
+//		[2, 1, 3],
+//		[1, null, 2, null, 3]
+//	]
+//	解释:
+//	  以上的输出对应以下 5 种不同结构的二叉搜索树：
+//
+//		  1         3     3      2      1
+//		  \       /     /      / \      \
+//		  3     2     1      1   3      2
+//		  /     /       \                 \
+//		  2     1         2                 3
+//执行用时 : 40 ms, 在Unique Binary Search Trees II的C++提交中击败了78.28% 的用户
+//内存消耗: 17.3 MB, 在Unique Binary Search Trees II的C++提交中击败了18.73% 的用户
+class Solution95 {
+public:
+	vector<TreeNode*> generateTrees(int n) {
+		vector<TreeNode*> res;
+		if (n < 1) {
+			return res;
+		}
+		return recursion(1, n);
+	}
+
+	vector<TreeNode*>  recursion(int start, int end) {
+		vector<TreeNode*> res;
+		if (start > end) {
+			res.push_back(nullptr);
+		}
+
+		for (int i = start; i <= end; ++i) {
+			//以i为根节点的左子树包含的所有可能子树
+			auto lefts = recursion(start, i - 1);
+			//以i为根节点的右子树包含的所有可能子树
+			auto rights = recursion(i + 1, end);
+			for (auto left : lefts) {
+				for (auto right : rights) {
+					TreeNode *root = new TreeNode(i);
+					root->left = left;
+					root->right = right;
+					res.push_back(root);
+				}
+			}
+		}
+
+		return res;
+	}
+};
+
+TEST(Dynamic, Solution95) {
+	
+	auto tree = Solution95().generateTrees(3);
+
+	string ret = "[";
+
+	for (auto node : tree) {
+		ret += TreeNodeCodec::serialize(node);
+		ret += ",";
+	}
+	ret.back() = ']';
+
+	EXPECT_EQ(ret, "[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]");
 }
