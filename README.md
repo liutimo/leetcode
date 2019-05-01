@@ -19,3 +19,7 @@ LeetCode
 2. [33. 搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
 3. [82. 删除排序链表中的重复元素 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
 4. [86. 分隔链表](https://leetcode-cn.com/problems/partition-list/submissions/)
+
+#### 20190501
+1. [78. 子集](https://leetcode-cn.com/problems/subsets/)
+2. [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/submissions/)

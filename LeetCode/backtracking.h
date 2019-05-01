@@ -194,3 +194,110 @@ public:
 		return ret;
 	}
 };
+
+
+//78 子集
+//给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+//
+//说明：解集不能包含重复的子集。
+//
+//示例 :
+//
+//输入: nums = [1, 2, 3]
+//	输出 :
+//	[
+//		[3],
+//		[1],
+//		[2],
+//		[1, 2, 3],
+//		[1, 3],
+//		[2, 3],
+//		[1, 2],
+//		[]
+//	]
+//执行用时: 12 ms, 在Subsets的C++提交中击败了96.20% 的用户
+//内存消耗 : 9.5 MB, 在Subsets的C++提交中击败了21.23% 的用户
+class Solution78 {
+public:
+	vector<vector<int>> subsets(vector<int>& nums) {
+		//不包含重复元素
+		vector<vector<int>> ret = { {} };
+		vector<int> one;
+			recursion(ret, one, 0, nums);
+
+		return ret;
+	}
+
+	void recursion(vector<vector<int>> &ret, vector<int> one, int start, const vector<int> &nums) {
+		for (int i = start; i < nums.size(); i++) {
+			one.push_back(nums[i]);
+			ret.emplace_back(one);
+			recursion(ret, one, i + 1, nums);
+			one.pop_back();
+		}
+	}
+};
+
+TEST(Backtracking, Solution78) {
+	string line = "[1,2]";
+	auto in = stringToIntegerVector(line);
+	auto ret = Solution78().subsets(in);
+	vector<vector<int>> res = {
+		{},
+		{1}, {1, 2},
+		{2}
+	};
+	EXPECT_EQ(res == ret, true);
+}
+
+//90. 子集 II
+//给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+//
+//说明：解集不能包含重复的子集。
+//
+//示例 :
+//
+//输入: [1, 2, 2]
+//	输出 :
+//	[
+//		[1],
+//		[1, 2],
+//		[1, 2, 2],
+//		[2],
+//		[2, 2],
+//		[]
+//	]
+//执行用时: 16 ms, 在Subsets II的C++提交中击败了94.86% 的用户
+//内存消耗 : 9.7 MB, 在Subsets II的C++提交中击败了36.23% 的用户
+
+class Solution90 {
+public:
+	vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+		sort(nums.begin(), nums.end());
+		//不包含重复元素
+		vector<vector<int>> ret = { {} };
+		vector<int> one;
+		recursion(ret, one, 0, nums);
+
+		return ret;
+	}
+
+	void recursion(vector<vector<int>> &ret, vector<int> one, int start, const vector<int> &nums) {
+		for (int i = start; i < nums.size(); i++) {
+			if (i != start && nums[i] == nums[i - 1]) continue;
+			one.push_back(nums[i]);
+			ret.emplace_back(one);
+			recursion(ret, one, i + 1, nums);
+			one.pop_back();
+		}
+	}
+};
+
+TEST(Backtracking, Solution90) {
+	string line = "[1]";
+	auto in = stringToIntegerVector(line);
+	auto ret = Solution90().subsetsWithDup(in);
+
+	vector<vector<int>> res = { {}, {1} };
+	EXPECT_EQ(res, ret);
+}
