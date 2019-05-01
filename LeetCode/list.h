@@ -210,3 +210,62 @@ TEST(List, Soultion86) {
 	line = "[1, 2]";
 	EXPECT_EQ(listNodeToString(Solution86().partition(stringToListNode(line), 2)), "[1, 2]");
 }
+//
+//92. 反转链表 II
+//反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+//
+//说明 :
+//1 ≤ m ≤ n ≤ 链表长度。
+//
+//示例 :
+//
+//输入: 1->2->3->4->5->NULL, m = 2, n = 4
+//	输出 : 1->4->3->2->5->NULL
+//执行用时 : 8 ms, 在Reverse Linked List II的C++提交中击败了96.41% 的用户
+//内存消耗: 8.7 MB, 在Reverse Linked List II的C++提交中击败了64.82% 的用户
+//
+class Solution92 {
+public:
+	ListNode * reverseBetween(ListNode* head, int m, int n) {
+		if (m == n) return head;
+		if (m <= 0)  m = 1;
+		ListNode *new_head = (m == 1 ? nullptr : head);
+
+		ListNode *prev = nullptr;
+		ListNode *next = head->next;
+		ListNode *start_node = nullptr;
+		ListNode *before_start_node = nullptr;
+		ListNode *next_node = head->next;
+		int count = 0;
+		while (head) {
+			++count;
+			if (count >= m && count <= n) {
+				if (!before_start_node) {
+					before_start_node = prev;
+				}
+				if (!start_node) start_node = head;
+				head->next = prev;
+			}
+			else if (count > n) {
+				break;
+			}
+			prev = head;
+			head = next_node;
+			if (head)
+			next_node = head->next;
+		}
+		start_node->next = head;
+		if (m != 1)
+			before_start_node->next = prev;
+		if (new_head == nullptr) new_head = prev;
+		return new_head;
+	}
+};
+TEST(list, Solution92) {
+	Solution92 s;
+	string str = "[1,2,3]";
+	auto *head = stringToListNode(str);
+	auto res = listNodeToString(s.reverseBetween(head, 1, 3));
+	string res2 = "[3, 2, 1]";
+	EXPECT_EQ(res, res2);
+}

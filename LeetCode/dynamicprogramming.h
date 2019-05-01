@@ -242,3 +242,9 @@ public:
 		return dp.back();
 	}
 };
+
+TEST(Dynamic, Solution91) {
+	EXPECT_EQ(Solution91().numDecodings("0111"), 0);
+	EXPECT_EQ(Solution91().numDecodings("26"), 2);
+	EXPECT_EQ(Solution91().numDecodings("20"), 1);
+}
