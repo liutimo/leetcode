@@ -26,3 +26,7 @@ LeetCode
 3. [91. 解码方法](https://leetcode-cn.com/problems/decode-ways/submissions/)
 4. [96. 不同的二叉搜索树](https://leetcode-cn.com/problems/unique-binary-search-trees/submissions/)
 5. [95. 不同的二叉搜索树 II](https://leetcode-cn.com/problems/unique-binary-search-trees-ii/)
+
+
+#### 20190502
+1. [106. 从中序与后序遍历序列构造二叉树](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)

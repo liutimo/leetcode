@@ -3,6 +3,7 @@
 #include "list.h"
 #include "dynamicprogramming.h"
 #include "backtracking.h"
+#include "tree.h"
 
 
 int main()
