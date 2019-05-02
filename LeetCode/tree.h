@@ -299,3 +299,83 @@ TEST(Tree, Solution112) {
 	EXPECT_EQ(false, Solution112().hasPathSum(TreeNodeCodec::deserialize("[1,2,3,4,5,6]"), 4));
 	EXPECT_EQ(false, Solution112().hasPathSum(TreeNodeCodec::deserialize("[1,2,3,4,5,6,7]"), 0));
 }
+
+//113. 路径总和 II
+//给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
+//
+//说明 : 叶子节点是指没有子节点的节点。
+//
+//	示例 :
+//给定如下二叉树，以及目标和 sum = 22，
+//
+//			  5
+//			 / \
+//			4   8
+//		   /   / \
+//		  11  13  4
+//		 /  \    / \
+//		7    2  5   1
+
+
+class Solution113 {
+public:
+	vector<vector<int>> pathSum(TreeNode* root, int sum) {
+		vector<vector<int>> ret;
+		if (!root) return {};
+
+		vector<int> path;
+		dfs(ret, path, root, sum);
+		return ret;
+	}
+
+	void dfs(vector<vector<int>>& res, vector<int> path, TreeNode* root, int sum) {
+		path.push_back(root->val);
+		sum -= root->val;
+		if (root->right) {
+			dfs(res, path, root->right, sum);
+		}
+
+		if (root->left) {
+			dfs(res, path, root->left, sum);
+		}
+
+		if (sum == 0 && !root->left && !root->right) {
+			res.emplace_back(path);
+		}
+	}
+};
+
+TEST(Tree, Solution113) {
+	//生成树的函数似乎有点问题
+	auto ret = Solution113().pathSum(TreeNodeCodec::deserialize("[1,2,3,4,5,6,7]"), 7);
+	decltype(ret) ret1;
+	vector<int> one = { 1, 2, 4 };
+	ret1.emplace_back(one);
+	EXPECT_EQ(ret1, ret);
+}
+
+
+//114. 二叉树展开为链表
+//给定一个二叉树，原地将它展开为链表。
+//
+//例如，给定二叉树
+//
+//    1
+//   / \
+//  2   5
+// / \   \
+//3   4   6
+//将其展开为：
+//
+//1
+// \
+//  2
+//   \
+//    3
+//     \
+//      4
+//       \
+//        5
+//         \
+//          6
+//
