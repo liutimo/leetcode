@@ -198,3 +198,60 @@ public:
 	}
 };
 
+TEST(Tree, Solution110) {
+
+	auto *head = TreeNodeCodec::deserialize("[1,2,2,3,3,null,null,4,4]");
+
+	EXPECT_EQ(Solution110().isBalanced(head), false);
+
+	EXPECT_EQ(Solution110().isBalanced(TreeNodeCodec::deserialize("[3,9,20,null,null,15,7]")), true);
+}
+
+
+
+
+
+//111. 二叉树的最小深度
+//给定一个二叉树，找出其最小深度。
+//
+//最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+//
+//说明 : 叶子节点是指没有子节点的节点。
+//
+//	示例 :
+//
+//给定二叉树[3, 9, 20, null, null, 15, 7],
+//
+//3
+/// \
+//9  20
+/// \
+//15   7
+//返回它的最小深度  2.
+//执行用时: 40 ms, 在Minimum Depth of Binary Tree的C++提交中击败了39.05% 的用户
+//内存消耗 : 20.4 MB, 在Minimum Depth of Binary Tree的C++提交中击败了5.06% 的用户
+class Solution111 {
+public:
+	int minDepth(TreeNode* root) {
+		if (!root) {
+			return 0;
+		}
+		//说明其为叶子节点
+		if (!root->left && !root->right) {
+			return 1;
+		}
+
+		//有一个不为空
+		if ((root->left == nullptr) ^ (root->right == nullptr)) {
+			return  max(minDepth(root->left), minDepth(root->right)) + 1;
+		}
+		//都不为空
+		return min(minDepth(root->left), minDepth(root->right)) + 1;
+	}
+};
+
+
+TEST(Tree, Solution111) {
+	//生成树的函数似乎有点问题
+	EXPECT_EQ(2, Solution111().minDepth(TreeNodeCodec::deserialize("[1, 9]")));
+}
