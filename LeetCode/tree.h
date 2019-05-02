@@ -71,3 +71,65 @@ TEST(Tree, Solution106) {
 	auto res = TreeNodeCodec::serialize(Solution106().buildTree(inorder, postorder));
 	EXPECT_EQ(res, "[1,2]");
 }
+
+//109. 有序链表转换二叉搜索树
+//给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。
+//
+//本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。
+//
+//示例 :
+//
+//给定的有序链表：[-10, -3, 0, 5, 9],
+//
+//一个可能的答案是：[0, -3, 9, -10, null, 5], 它可以表示下面这个高度平衡二叉搜索树：
+//
+//		   0
+//		  / \
+//		- 3   9
+//		/    /
+//	 -10    5
+//执行用时: 56 ms, 在Convert Sorted List to Binary Search Tree的C++提交中击败了86.46% 的用户
+//内存消耗 : 24.4 MB, 在Convert Sorted List to Binary Search Tree的C++提交中击败了76.88% 的用户
+
+class Solution109 {
+public:
+	TreeNode* sortedListToBST(ListNode* head) {
+		if (!head) return nullptr;
+
+		if (!head->next) return  new TreeNode(head->val);;
+		//head对应的链表有序，即根据中序遍历构建二叉搜索树
+
+		//中心节点
+		auto *slow = head;
+		auto *fast = head;
+		auto *slow_prev = head;
+
+		while (fast->next && fast->next->next)
+		{
+			slow_prev = slow;
+			slow = slow->next;
+			fast = fast->next->next;
+		}
+		//[-10,-3,0,5,9] , 第一次mid为 0，  左子树为 -10  -3
+		//第二次， slow_prev = fast = fast = -10
+		fast = slow->next; //如果没有这航母， -3就会丢失
+		//下次递归时，链表的终点
+		slow_prev->next = nullptr;
+		TreeNode *root = new TreeNode(slow->val);
+		if (head != slow) {
+			root->left = sortedListToBST(head);
+		}
+		root->right = sortedListToBST(fast);
+
+		return root;
+	}
+
+};
+
+TEST(Tree, Solution109) {
+	
+	auto *head = stringToListNode("[-10,-3,0,5,9]");
+	auto *root = Solution109().sortedListToBST(head);
+
+	EXPECT_EQ(TreeNodeCodec::serialize(root), "[0,-10,5,null,-3,null,9]");
+}
