@@ -133,3 +133,68 @@ TEST(Tree, Solution109) {
 
 	EXPECT_EQ(TreeNodeCodec::serialize(root), "[0,-10,5,null,-3,null,9]");
 }
+
+
+
+//110. 平衡二叉树
+//给定一个二叉树，判断它是否是高度平衡的二叉树。
+//
+//本题中，一棵高度平衡二叉树定义为：
+//
+//一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+//
+//示例 1:
+//
+//给定二叉树[3, 9, 20, null, null, 15, 7]
+//
+//3
+/// \
+//9  20
+/// \
+//15   7
+//返回 true 。
+//
+//示例 2:
+//
+//给定二叉树[1, 2, 2, 3, 3, null, null, 4, 4]
+//
+//1
+/// \
+//2   2
+/// \
+//3   3
+/// \
+//4   4
+//返回 false 。
+//
+//执行用时: 28 ms, 在Balanced Binary Tree的C++提交中击败了94.02% 的用户
+//内存消耗 : 17.2 MB, 在Balanced Binary Tree的C++提交中击败了55.28% 的用户
+class Solution110 {
+public:
+	bool isBalanced(TreeNode* root) {
+		if (!root) return  true;
+		int deepth = 0;
+		return recursion(root, deepth);
+	}
+
+	bool recursion(TreeNode* root, int &deepth) {
+		if (!root) {
+			deepth = 0;
+			return true;
+		}
+
+		int lDeepth = 0;
+		int rDeepth = 0;
+		bool left = recursion(root->left, lDeepth);
+		bool right = recursion(root->right, rDeepth);
+
+		deepth = max(lDeepth, rDeepth) + 1;
+
+		if (!left || !right) {
+			return false;
+		}
+
+		return abs(lDeepth - rDeepth) <= 1;
+	}
+};
+
