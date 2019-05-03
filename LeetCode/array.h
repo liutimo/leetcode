@@ -124,6 +124,8 @@ TEST(testadd, test1)
 //	进阶：
 //
 //	你可以优化你的算法到 O(k) 空间复杂度吗？
+//执行用时: 8 ms, 在Pascal's Triangle II的C++提交中击败了95.82% 的用户
+//内存消耗 : 8.5 MB, 在Pascal's Triangle II的C++提交中击败了29.13% 的用户
 class Solution119 {
 public:
 	vector<int> getRow(int rowIndex) {
