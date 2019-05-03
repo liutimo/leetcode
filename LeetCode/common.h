@@ -241,3 +241,11 @@ public:
 		return nums[0];
 	}
 };
+
+
+struct Node {
+	int val;
+	Node* left;
+	Node* right;
+	Node* next;
+};

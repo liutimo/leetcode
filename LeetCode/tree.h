@@ -429,3 +429,13 @@ TEST(Tree, Solution114) {
 
 	EXPECT_EQ(ret, res);
 }
+
+
+
+class Solution117 {
+public:
+	Node* connect(Node* root) {
+		if (!root) return root;
+
+	}
+};
