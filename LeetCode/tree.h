@@ -378,4 +378,54 @@ TEST(Tree, Solution113) {
 //        5
 //         \
 //          6
+//执行用时 : 12 ms, 在Flatten Binary Tree to Linked List的C++提交中击败了97.09% 的用户
+//内存消耗: 9.8 MB, 在Flatten Binary Tree to Linked List的C++提交中击败了76.11 % 的用户
 //
+
+class Solution114 {
+public:
+	void flatten(TreeNode* root) {
+		TreeNode* tail = nullptr;
+		buildChildTree(root, tail);
+	}
+
+
+	void buildChildTree(TreeNode* root, TreeNode*& tail) {
+		if (root->right && !root->left) { //右子树不为空
+			buildChildTree(root->right, tail);
+		}
+		else if (root->left && !root->right){  //右子树为空
+			root->right = root->left;
+			buildChildTree(root->left, tail);
+			root->left = nullptr;
+		}
+		else if (!root->left && !root->right){
+			//左右子树都为空
+			tail = root;
+		}
+		else {
+			//左右子树都不为空
+			TreeNode* left_tail = nullptr;
+			buildChildTree(root->left, left_tail);
+			buildChildTree(root->right, tail);
+			left_tail->right = root->right;
+			root->right = root->left;
+			root->left = nullptr;
+		}
+	}
+};
+
+TEST(Tree, Solution114) {
+	auto* root = TreeNodeCodec::deserialize("[1,2,5,3,4,null,6]");
+
+	Solution114().flatten(root);
+
+	vector<int> ret;
+	while (root) {
+		ret.push_back(root->val);
+		root = root->right;
+	}
+	vector<int> res = {1,2,3,4,5,6};
+
+	EXPECT_EQ(ret, res);
+}

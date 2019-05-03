@@ -35,3 +35,6 @@ LeetCode
 4. [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
 5. [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
 6. [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/)
+
+#### 20190503
+1. [114. 二叉树展开为链表](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/submissions/)
