@@ -429,13 +429,111 @@ TEST(Tree, Solution114) {
 
 	EXPECT_EQ(ret, res);
 }
+//
+//116. 填充每个节点的下一个右侧节点指针
+//给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+//
+//struct Node {
+//	int val;
+//	Node* left;
+//	Node* right;
+//	Node* next;
+//}
+//填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+//
+//初始状态下，所有 next 指针都被设置为 NULL。
+class Solution116 {
+public:
+	Node* connect1(Node* root) {
+		if (!root) return root;
+
+		auto* nr = root;
+
+		while (root->left) {
+			auto* curr = root;
+			while (curr) {
+				curr->left->next = curr->right;
+				if (curr->next) {
+					curr->right->next = curr->next->left;
+				}
+				curr = curr->next;
+			}
+			root = root->left;
+		}
+		return nr;
+	}
 
 
+	void recursion(Node* root) {
+		if (root == nullptr) return;
 
+		if (root->right == nullptr && root->left == nullptr) return;
+
+		root->left->next = root->right;
+		if (root->next) {
+			root->right->next = root->next->left;
+		}
+		else {
+			root->right->next = nullptr;
+		}
+
+		recursion(root->left);
+		recursion(root->right);
+	}
+};
+
+//117. 填充每个节点的下一个右侧节点指针 II
+//https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/
+/*
+// Definition for a Node.
+class Node {
+public:
+	int val;
+	Node* left;
+	Node* right;
+	Node* next;
+
+	Node() {}
+
+	Node(int _val, Node* _left, Node* _right, Node* _next) {
+		val = _val;
+		left = _left;
+		right = _right;
+		next = _next;
+	}
+};
+*/
 class Solution117 {
 public:
 	Node* connect(Node* root) {
 		if (!root) return root;
+
+		auto* next = root->next;
+		while (next) {
+			//    if (next->right || next->left) {
+			//        break;
+			//    }
+
+			if (next->left) {
+				next = next->left;
+				break;
+			}
+			if (next->right) {
+				next = next->right;
+				break;
+			}
+			next = next->next;
+		}
+		if (root->right) root->right->next = next;
+		if (root->left) root->left->next = root->right ? root->right : next;
+
+		//必须先连接右子树
+		connect(root->right);
+		connect(root->left);
+		return root;
+	}
+
+	void recursion(Node* root) {
 
 	}
 };
