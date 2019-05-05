@@ -44,4 +44,5 @@ LeetCode
 
 
 #### 20190504
-1. [138. 复制带随机指针的链表](https://leetcode-cn.com/problems/copy-list-with-random-pointer/)
+1. [137. 只出现一次的数字 II](https://leetcode-cn.com/problems/single-number-ii/)
+2. [138. 复制带随机指针的链表](https://leetcode-cn.com/problems/copy-list-with-random-pointer/)
