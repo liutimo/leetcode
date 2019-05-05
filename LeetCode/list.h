@@ -269,3 +269,89 @@ TEST(list, Solution92) {
 	string res2 = "[3, 2, 1]";
 	EXPECT_EQ(res, res2);
 }
+
+//138 https://leetcode-cn.com/problems/copy-list-with-random-pointer/
+
+
+// Definition for a Node.
+
+
+class Solution138 {
+	class Node {
+	public:
+		int val;
+		Node* next;
+		Node* random;
+
+		Node() {}
+
+		Node(int _val, Node* _next, Node* _random) {
+			val = _val;
+			next = _next;
+			random = _random;
+		}
+	};
+public:
+	//使用额外空间
+	Node* copyRandomList1(Node* head) {
+		if (!head) return head;
+		std::map<Node*, Node*> map;
+
+		auto* curr = head;
+		while (curr) {
+			map[curr] = new Node();
+			map[curr]->val = curr->val;
+			curr = curr->next;
+		}
+
+
+		curr = head;
+		while (curr) {
+			map[curr]->next = map[curr->next];
+			map[curr]->random = map[curr->random];
+		}
+		return map[head];
+	}
+
+	//不使用额外空间
+	//考虑如下链表：
+	// 1 -> 2 -> 3 -> null
+	// 1 -> new1 -> 2 -> new2 -> 3 -> new3 ->null
+	// 1的random为2
+	//那么new1 的random为 new2
+	//即 curr->next->random (new node) = curr->random(old random)->next (new)
+	Node* copyRandomList(Node* head) {
+		if (!head) return head;
+
+		auto *curr = head;
+		Node *new_head = nullptr;
+		Node *new_curr = nullptr;
+		while (curr) {
+			auto* new_node = new Node(curr->val, curr->next, nullptr);
+			curr->next = new_node;
+			curr = new_node->next;
+		}
+
+		curr = head;
+		while (curr) {
+			if (curr->random) {
+				curr->next->random = curr->random->next;
+			}
+			curr = curr->next->next;
+		}
+		
+		//断开连接
+		curr = head;
+		new_head = head->next;
+		new_curr = new_head;
+		while (curr) 		{
+			curr->next = new_curr->next;
+			if (new_curr->next)
+			new_curr->next = new_curr->next->next;
+
+			curr = curr->next;
+			new_curr = new_curr->next;
+		}
+		return new_head;
+	}
+};
