@@ -420,3 +420,64 @@ TEST(Dynamic, Solution120) {
 
 	EXPECT_EQ(11, Solution120().minimumTotal(in));
 }
+
+
+//123. 买卖股票的最佳时机 III
+//error
+class Solution123 {
+public:
+	int maxProfit(vector<int>& prices) {
+		vector<int> dp;
+		int value = 0;
+		for (size_t i = 1; i < prices.size(); i++) {
+			if (prices[i] - prices[i - 1] > 0) {
+				value += prices[i] - prices[i - 1];
+			} 
+			else {
+				dp.push_back(value);
+				value = 0;
+			}
+		}
+
+		dp.push_back(value);
+		value = 0;
+		sort(dp.begin(), dp.end());
+		int size = dp.size();
+		if (size == 0) {
+			return 0;
+		}
+		else if (size == 1) {
+			return dp.back();
+		}
+		else {
+			return dp[size - 1] + dp[size - 2];
+		}
+	}
+};
+
+//139. 单词拆分
+//https://leetcode-cn.com/problems/word-break/
+class Solution139 {
+public:
+	bool wordBreak(string s, vector<string>& wordDict) {
+		vector<bool> dp(s.length() + 1, false);
+		unordered_set<string> set(wordDict.cbegin(), wordDict.cend());
+		dp[0] = true;
+
+		for (int i = 1; i <= s.length(); ++i) {
+			for (int j = 0; j < i; ++j) {
+				if (dp[j] && (set.count(s.substr(j, i - j)) == 1)) {
+					dp[i] = true;
+					break;
+				}
+			}
+		}
+		return dp.back();
+	}
+};
+
+TEST(Dynamic, Solution139) {
+	string s = "leetcodeleetcode";
+	vector<string> dict = { "leet", "code" };
+	EXPECT_EQ(Solution139().wordBreak(s, dict), true);
+}

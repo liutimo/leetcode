@@ -145,32 +145,25 @@ TEST(Array, Solution33) {
 
 class Solution81 {
 public:
-	int search(vector<int>& nums, int target) {
+	bool search(vector<int>& nums, int target) {
 		int left = 0, right = nums.size() - 1;
-
 		while (left <= right) {
 			int mid = left + (right - left) / 2;
-			if (nums[mid] == target) {
+			if (nums[mid] == target)
 				return true;
+			if (nums[mid] == nums[left] && nums[mid] == nums[right])
+				left++, right--;
+			else if (nums[mid] <= nums[right]) {
+				if (nums[mid] <target && target <= nums[right])
+					left = mid + 1;
+				else
+					right = mid - 1;
 			}
 			else {
-				//mid在右侧有序段
-				if (nums[mid] < nums[right]) {
-					if (nums[mid] < target && target <= nums[right]) { //target 在有序段
-						left = mid + 1;
-					}
-					else {
-						right = mid - 1;	//target 在mid右侧
-					}
-				}
-				else { // mid在左侧有序段
-					if (nums[mid] > target && target > nums[right]) {
-						right = mid - 1;
-					}
-					else {
-						left = mid + 1;
-					}
-				}
+				if (nums[left] <= target && target < nums[mid])
+					right = mid - 1;
+				else
+					left = mid + 1;
 			}
 		}
 		return false;

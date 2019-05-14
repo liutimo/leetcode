@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <queue>
 #include <cstdio>
+#include <unordered_set>
 using namespace std;
 
 //打印一维容器
@@ -241,21 +242,38 @@ public:
 		return nums[0];
 	}
 };
+namespace tree {
 
+	class Node {
+	public:
+		int val;
+		Node* left;
+		Node* right;
+		Node* next;
 
-class Node {
-public:
+		Node() {}
+
+		Node(int _val, Node* _left, Node* _right, Node* _next) {
+			val = _val;
+			left = _left;
+			right = _right;
+			next = _next;
+		}
+	};
+};
+namespace graph {
+	
+	// Definition for a Node.
+	class Node {
+	public:
 	int val;
-	Node* left;
-	Node* right;
-	Node* next;
+	vector<Node*> neighbors;
 
 	Node() {}
 
-	Node(int _val, Node* _left, Node* _right, Node* _next) {
-		val = _val;
-		left = _left;
-		right = _right;
-		next = _next;
+	Node(int _val, vector<Node*> _neighbors) {
+	val = _val;
+	neighbors = _neighbors;
 	}
+	};
 };
